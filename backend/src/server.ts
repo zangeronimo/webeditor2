@@ -1,7 +1,10 @@
 import express from 'express'
 import cors from 'cors';
+
 import routes from './routes';
 import { authorization } from './services/auth';
+
+import './database/connection';
 
 const app = express();
 app.use(cors());
