@@ -1,28 +1,28 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import WebCompany from '../models/WebCompany';
-import WebCompanyView from '../views/WebCompaniesView';
+import WebUser from '../models/WebUser';
+import WebUserView from '../views/WebUsersView';
 import * as Yup from 'yup';
 
 export default {
     async index(request: Request, response: Response) {
-        const webCompanyRepository = getRepository(WebCompany);
+        const webUserRepository = getRepository(WebUser);
 
-        const webCompanies = await webCompanyRepository.find({
-            relations: ['webUsers']
+        const webUsers = await webUserRepository.find({
+            relations: ['webCompany']
         });
 
-        return response.json(WebCompanyView.renderMany(webCompanies));
+        return response.json(WebUserView.renderMany(webUsers));
     },
 
     async show(request: Request, response: Response) {
         const {id} = request.params;
-        const webCompanyRepository = getRepository(WebCompany);
+        const webUserRepository = getRepository(WebUser);
         
-        const webCompany = await webCompanyRepository.findOneOrFail(id, {
-            relations: ['webUsers']
+        const webUser = await webUserRepository.findOneOrFail(id, {
+            relations: ['webCompany']
         });
-        return response.json(WebCompanyView.render(webCompany));
+        return response.json(WebUserView.render(webUser));
     },
 
     async create(request: Request, response: Response) {
@@ -30,23 +30,26 @@ export default {
             name,
             email,
             password,
-            active
+            active,
+            webCompany
         } = request.body;
     
-        const webCompanyRepository = getRepository(WebCompany);
+        const webUserRepository = getRepository(WebUser);
     
         const data = {
             name,
             email,
             password,
-            active
+            active,
+            webCompany
         };
 
         const schema = Yup.object().shape({
             name: Yup.string().required('Nome obrigatório'),
             email: Yup.string().required('E-mail obrigatório'),
             password: Yup.string().required('Password obrigatório'),
-            active: Yup.boolean().required('Ativo obrigatório')
+            active: Yup.boolean().required('Ativo obrigatório'),
+            webCompany: Yup.object().required('Empresa obrigatório')
         })
 
         const finalData = schema.cast(data);
@@ -55,10 +58,10 @@ export default {
             abortEarly: false,
         })
 
-        const webCompany = webCompanyRepository.create(finalData);
+        const webUser = webUserRepository.create(finalData);
     
-        await webCompanyRepository.save(webCompany);
+        await webUserRepository.save(webUser);
     
-        return response.status(201).json(webCompany);
+        return response.status(201).json(webUser);
     }
 };
