@@ -8,6 +8,8 @@ export default {
             email: webCompany.email,
             password: webCompany.password,
             active: webCompany.active,
+            webUsers: webCompany.webUsers,
+            addAt: webCompany.add_at,
         };
     },
 

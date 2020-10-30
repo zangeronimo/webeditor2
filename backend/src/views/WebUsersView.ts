@@ -9,6 +9,7 @@ export default {
             password: webUser.password,
             active: webUser.active,
             webCompany: webUser.webCompany,
+            addAt: webUser.add_at,
         };
     },
 

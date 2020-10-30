@@ -23,8 +23,9 @@ export default class WebCompany {
     add_at: Date;
 
     @OneToMany(() => WebUser, webUser => webUser.webCompany, {
+        nullable: true,
         cascade: ['insert', 'update']
     })
     @JoinColumn({ name: 'web_company_id' })
-    webUsers?: WebUser[];
+    webUsers: WebUser[];
 }
