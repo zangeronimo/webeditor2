@@ -1,0 +1,200 @@
+@import '@/Presentations/Styles/Colors.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  min-height: 100%;
+  background-color: $cyan-800;
+
+  transition: all 0.2s;
+  margin-left: 0px;
+  width: 70px;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+  padding-top: 0.5rem;
+
+  .profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    margin-top: -10px;
+
+    padding-left: 1rem;
+
+    img {
+      border-radius: 50%;
+      border: 2px solid $gray-200;
+      width: 60px;
+      height: 60px;
+    }
+
+    span {
+      color: $gray-500;
+
+      p {
+        color: $gray-400;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    margin-bottom: 2rem;
+
+    .itemsWrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: 100%;
+
+      cursor: pointer;
+      position: relative;
+
+      padding: 0 1rem;
+
+      .items {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        width: 100%;
+        color: $gray-300;
+
+        span {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          svg {
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
+
+    .subitems {
+      width: 100%;
+
+      background-color: $cyan-800;
+
+      ul {
+        width: 100%;
+
+        padding: 0;
+
+        li {
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 1rem;
+          padding: 0.5rem 1rem;
+          width: 100%;
+          list-style: none;
+
+          &:hover {
+            background-color: $cyan-800;
+          }
+
+          svg {
+            font-size: 0.5rem;
+          }
+        }
+
+        a {
+          color: $gray-500;
+          text-decoration: none;
+
+          &:hover {
+            filter: brightness(1.2);
+          }
+        }
+      }
+    }
+  }
+
+  .active {
+    border-right: 4px solid $cyan-700;
+  }
+}
+
+.min {
+  .profile {
+    padding-left: 0;
+
+    img {
+      width: 55px;
+      height: 55px;
+    }
+
+    span {
+      display: none;
+    }
+  }
+
+  .menu {
+    .itemsWrap {
+      .items {
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.2rem;
+        padding: 0;
+
+        svg {
+          font-size: 1.5rem;
+        }
+
+        span {
+          font-size: 0.75rem;
+          width: auto;
+
+          svg {
+            display: none;
+          }
+        }
+      }
+
+      .subitems {
+        position: absolute;
+        top: 0;
+        left: 65px;
+        width: 200px;
+
+        ul {
+          margin: 0;
+          padding: 0;
+
+          li {
+            border: none;
+
+            padding: 0.5rem 1rem;
+            list-style: none;
+
+            &:hover {
+              background-color: $cyan-800;
+            }
+
+            svg {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

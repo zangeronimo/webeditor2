@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 1rem;
+
+  font-size: 0.75rem;
+
+  padding: 1rem 0;
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.2rem;
+
+    button {
+      margin: 0;
+      padding: 0.2rem 0.5rem;
+      min-width: 2rem;
+      font-size: 0.75rem;
+    }
+
+    .space {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+    }
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .container {
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1rem;
+
+    .buttons {
+      button {
+        font-size: 1rem;
+      }
+    }
+  }
+}

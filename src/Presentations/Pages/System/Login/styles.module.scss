@@ -1,0 +1,19 @@
+@import '@/Presentations/Styles/Colors.scss';
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  background: url('/public/assets/images/background_login.webp') no-repeat fixed;
+  background-position: center;
+  background-size: cover;
+
+  padding: 0 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  div {
+    z-index: 2;
+  }
+}

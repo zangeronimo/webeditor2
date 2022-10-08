@@ -1,0 +1,40 @@
+@import '@/Presentations/Styles/Colors.scss';
+
+.container {
+  padding: 0.5rem 1.5rem;
+  border: 0;
+  background-color: transparent;
+  border-radius: 4px;
+  transition: all 0.2s;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &:hover:not([disabled]) {
+    filter: brightness(1.2);
+  }
+}
+
+.primary {
+  background-color: $blue-700;
+  color: $gray-300;
+}
+
+.secondary {
+  background-color: $gray-600;
+  color: $gray-300;
+}
+
+@media (min-width: 720px) {
+  .container {
+    padding: 0.25rem 0.75rem;
+  }
+}

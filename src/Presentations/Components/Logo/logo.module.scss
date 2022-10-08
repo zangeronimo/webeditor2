@@ -1,0 +1,18 @@
+@import '@/Presentations/Styles/Colors.scss';
+
+.container {
+  text-align: center;
+  color: $orange-600;
+  font-size: 2.5rem;
+  padding: 0 0.3rem;
+  border-radius: 5px;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+  span {
+    color: $blue-600;
+  }
+}

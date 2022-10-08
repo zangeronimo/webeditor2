@@ -1,0 +1,21 @@
+@import '@/Presentations/Styles/Colors.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: $gray-700;
+
+  padding-right: 1rem;
+  background-color: $gray-400;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+  a {
+    text-decoration: none;
+    color: $gray-700;
+  }
+}

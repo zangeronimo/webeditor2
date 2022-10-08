@@ -1,0 +1,54 @@
+@import '@/Presentations/Styles/Colors.scss';
+
+.container {
+  width: 360px;
+  position: relative;
+  padding: 16px 30px 16px 16px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  & + div {
+    margin-top: 1.5rem;
+  }
+  div {
+    flex: 1;
+    margin-left: 1rem;
+    p {
+      margin-top: 4px;
+      font-size: 14px;
+      opacity: 0.8;
+      line-height: 20px;
+    }
+  }
+  button {
+    position: absolute;
+    right: 16px;
+    top: 19px;
+    opacity: 0.6;
+    border: 0;
+    background: transparent;
+    color: inherit;
+  }
+
+  .no_description {
+    align-items: center;
+    svg {
+      margin-top: 0;
+    }
+  }
+}
+
+.info {
+  background: $cyan-200;
+  color: $cyan-700;
+}
+
+.error {
+  background: $red-200;
+  color: $red-700;
+}
+
+.success {
+  background: $green-200;
+  color: $green-700;
+}

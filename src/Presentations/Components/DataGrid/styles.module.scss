@@ -1,0 +1,105 @@
+@import '@/Presentations/Styles/Colors.scss';
+
+.container {
+  width: 100%;
+
+  table {
+    width: 100%;
+    border: 1px solid $gray-200;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    table-layout: fixed;
+
+    caption {
+      font-size: 1.5em;
+      margin: 0.5em 0 0.75em;
+
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+
+    tr {
+      padding: 0.35em;
+    }
+
+    tr:nth-child(even) {
+      background-color: $gray-200;
+    }
+
+    th,
+    td {
+      padding: 0.625em;
+      text-align: center;
+    }
+
+    th {
+      font-size: 0.85em;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background-color: $green-100;
+
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+
+      svg {
+        cursor: pointer;
+      }
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    table {
+      border: 0;
+
+      caption {
+        font-size: 1.3em;
+      }
+
+      thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+      }
+
+      tr:nth-child(even) {
+        background-color: transparent;
+      }
+
+      tr {
+        border: 1px solid $gray-200;
+        border-bottom: 3px solid $gray-200;
+        display: block;
+        margin-bottom: 0.625em;
+      }
+
+      td {
+        padding: 0.425em;
+        border-bottom: 1px solid $gray-200;
+        display: block;
+        font-size: 0.8em;
+        text-align: right;
+      }
+
+      td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      td:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+}
