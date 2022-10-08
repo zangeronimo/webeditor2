@@ -5,7 +5,7 @@
   "scripts": {
     "local:base": "webpack-dev-server --config webpack.local.js",
     "build": "webpack --config webpack.prod.js",
-    "prepare": "cd ../ && husky install",
+    "prepare": "husky install",
     "start": "yarn local:base --stats-error-details --open",
     "test": "jest",
     "test:watch": "yarn test --watch",
