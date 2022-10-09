@@ -7,7 +7,10 @@ import { Recipe } from '../Pages/Recipes/Recipe'
 import { AuthFactory } from '@/Application/Factories/Pages/System/AuthFactory'
 import { ProfileFactory } from '@/Application/Factories/Pages/System/ProfileFactory'
 import { UserFactory } from '@/Application/Factories/Pages/System/UserFactory'
-import { TagFactory } from '@/Application/Factories/Pages/Recipes/TagFactory'
+import {
+  TagFactory,
+  TagFormFactory,
+} from '@/Application/Factories/Pages/Recipes/TagFactory'
 import {
   CategoryFactory,
   CategoryFormFactory,
@@ -69,6 +72,23 @@ export const Routes = () => {
           </IsAuthenticated>
         }
       />
+      <Route
+        path="/recipe/tags/form"
+        element={
+          <IsAuthenticated>
+            <TagFormFactory />
+          </IsAuthenticated>
+        }
+      >
+        <Route
+          path=":guid"
+          element={
+            <IsAuthenticated>
+              <TagFormFactory />
+            </IsAuthenticated>
+          }
+        />
+      </Route>
       <Route
         path="/recipe/rates"
         element={

@@ -1,13 +1,15 @@
+import { ActiveEnum } from '@/Application/Enum/ActiveEnum'
+
 export class Tag {
   private _guid: string
   private _name: string
-  private _active?: boolean
+  private _active: ActiveEnum
   private _recipeCategoryGuid: string
 
   constructor(
     guid: string,
     name: string,
-    active: boolean,
+    active: ActiveEnum,
     recipeCategoryGuid: string,
   ) {
     this._guid = guid
