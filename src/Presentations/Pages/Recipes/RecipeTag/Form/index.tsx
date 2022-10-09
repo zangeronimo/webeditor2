@@ -1,6 +1,9 @@
+import { Category } from '@/Application/Entries/Recipes/Category'
 import { Tag } from '@/Application/Entries/Recipes/Tag'
 import { ActiveEnum } from '@/Application/Enum/ActiveEnum'
+import { ICategoryService } from '@/Application/Interfaces/Recipes/ICategoryService'
 import { ITagService } from '@/Application/Interfaces/Recipes/ITagService'
+import { FilterCategoryModel } from '@/Application/Models/Recipes/FilterCategoryModel'
 import { TagPayloadModel } from '@/Application/Models/Recipes/Tag/TagPayloadModel'
 import { IValidation } from '@/Infra/Validation/Interfaces/IValidation'
 import { Box } from '@/Presentations/Components/Box'
@@ -16,13 +19,15 @@ import { useNavigate, useParams } from 'react-router-dom'
 type Props = {
   _validation: IValidation
   _tag: ITagService
+  _category: ICategoryService
 }
 
 const URL_BACK = '/recipe/tags'
 
-export const RecipeTagForm = ({ _validation, _tag }: Props) => {
+export const RecipeTagForm = ({ _validation, _tag, _category }: Props) => {
   const [state, setState] = useState({
     tag: { active: ActiveEnum.Sim } as Tag,
+    categories: [] as Category[],
     isFormInvalid: true,
     recipeCategoryGuidError: '',
     nameError: '',
@@ -31,6 +36,17 @@ export const RecipeTagForm = ({ _validation, _tag }: Props) => {
   const { guid } = useParams()
   const navigate = useNavigate()
   const { addSuccess, addError } = useToast()
+
+  useEffect(() => {
+    const filter = new FilterCategoryModel()
+    filter.itemsPerPage = 9999
+    filter.orderBy = 'name'
+    filter.asc = true
+
+    _category.GetAll(filter).then(res => {
+      setState(old => ({ ...old, categories: res.result }))
+    })
+  }, [])
 
   const validate = (field: string): void => {
     const { name, recipeCategoryGuid } = state.tag
@@ -59,6 +75,7 @@ export const RecipeTagForm = ({ _validation, _tag }: Props) => {
   }, [guid])
 
   const handleChange = (key: string, value: unknown) => {
+    console.log(key, ' - ', value)
     setState(old => ({
       ...old,
       tag: {
@@ -99,10 +116,15 @@ export const RecipeTagForm = ({ _validation, _tag }: Props) => {
             defaultValue={state.tag.recipeCategoryGuid}
             error={state.recipeCategoryGuidError}
             onChange={e =>
-              handleChange('recipeCategoryGuid', +e.currentTarget.value)
+              handleChange('recipeCategoryGuid', e.currentTarget.value)
             }
           >
             <option value="">Select</option>
+            {state.categories.map(category => (
+              <option key={category.guid} value={category.guid}>
+                {category.name}
+              </option>
+            ))}
           </Select>
           <Select
             label="Active"
