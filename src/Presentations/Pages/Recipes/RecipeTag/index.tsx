@@ -27,10 +27,11 @@ type Props = {
 export const RecipeTag = ({ _tag }: Props) => {
   const [state, setState] = useState({
     response: { total: 0 } as PaginationResponseModel<Tag[]>,
+    refresh: false,
   })
 
   const [searchParams] = useSearchParams()
-  const word = searchParams.get('word')
+  const word = searchParams.get('word') ?? ''
 
   const navigate = useNavigate()
   const { addError, addSuccess } = useToast()
@@ -39,7 +40,10 @@ export const RecipeTag = ({ _tag }: Props) => {
   const handleDelete = (guid: string) => {
     _tag
       .Delete(guid)
-      .then(() => addSuccess(`Tag has deleted successfully.`))
+      .then(() => {
+        addSuccess(`Tag has deleted successfully.`)
+        setState(old => ({ ...old, refresh: !old.refresh }))
+      })
       .catch(err => addError(err.message))
   }
 
@@ -50,7 +54,7 @@ export const RecipeTag = ({ _tag }: Props) => {
         .GetAll(filter)
         .then(result => setState(old => ({ ...old, response: result })))
     }
-  }, [pagination])
+  }, [pagination, state.refresh])
 
   return (
     <Container search title="Recipe Tags">
