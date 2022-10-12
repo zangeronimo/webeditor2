@@ -1,6 +1,6 @@
 import { Tag } from '@/Application/Entries/Recipes/Tag'
 import { PaginationResponseModel } from '@/Application/Models/PaginationResponseModel'
-import { FilterTagModel } from '@/Application/Models/Recipes/FilterTagModel'
+import { FilterTagModel } from '@/Application/Models/Recipes/Tag/FilterTagModel'
 import { TagPayloadModel } from '@/Application/Models/Recipes/Tag/TagPayloadModel'
 
 export interface ITagService {

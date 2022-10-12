@@ -1,13 +1,14 @@
 import { Category } from '@/Application/Entries/Recipes/Category'
-import { Tag } from '@/Application/Entries/Recipes/Tag'
+import { Recipe } from '@/Application/Entries/Recipes/Recipe'
 import { ActiveEnum } from '@/Application/Enum/ActiveEnum'
 import { ICategoryService } from '@/Application/Interfaces/Recipes/ICategoryService'
-import { ITagService } from '@/Application/Interfaces/Recipes/ITagService'
+import { IRecipeService } from '@/Application/Interfaces/Recipes/IRecipeService'
 import { FilterCategoryModel } from '@/Application/Models/Recipes/Category/FilterCategoryModel'
-import { TagPayloadModel } from '@/Application/Models/Recipes/Tag/TagPayloadModel'
+import { RecipePayloadModel } from '@/Application/Models/Recipes/Recipe/RecipePayloadModel'
 import { IValidation } from '@/Infra/Validation/Interfaces/IValidation'
 import { Box } from '@/Presentations/Components/Box'
 import { Container } from '@/Presentations/Components/Container'
+import { Editor } from '@/Presentations/Components/Form/Editor'
 import { Button } from '@/Presentations/Components/Form/Button'
 import { Input } from '@/Presentations/Components/Form/Input'
 import { Select } from '@/Presentations/Components/Form/Select'
@@ -18,18 +19,20 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 type Props = {
   _validation: IValidation
-  _tag: ITagService
+  _recipe: IRecipeService
   _category: ICategoryService
 }
 
-const URL_BACK = '/recipe/tags'
+const URL_BACK = '/recipes'
 
-export const RecipeTagForm = ({ _validation, _tag, _category }: Props) => {
+export const RecipeForm = ({ _validation, _recipe, _category }: Props) => {
   const [state, setState] = useState({
-    tag: { active: ActiveEnum.Sim } as Tag,
+    recipe: { active: ActiveEnum.Sim } as Recipe,
     categories: [] as Category[],
     isFormInvalid: true,
-    recipeCategoryGuidError: '',
+    recipeCategoryError: '',
+    ingredientsError: '',
+    preparationError: '',
     nameError: '',
   })
 
@@ -49,46 +52,64 @@ export const RecipeTagForm = ({ _validation, _tag, _category }: Props) => {
   }, [])
 
   const validate = (field: string): void => {
-    const { name, recipeCategoryGuid } = state.tag
-    const formData = { name, recipeCategoryGuid }
+    const { name, recipeCategoryGuid, ingredients, preparation } = state.recipe
+    const formData = {
+      name,
+      recipeCategoryGuid,
+      ingredients,
+      preparation,
+    }
     setState(old => ({
       ...old,
       [`${field}Error`]: _validation.validate(field, formData),
     }))
     setState(old => ({
       ...old,
-      isFormInvalid: !!old.nameError || !!old.recipeCategoryGuidError,
+      isFormInvalid:
+        !!old.nameError ||
+        !!old.recipeCategoryError ||
+        !!old.ingredientsError ||
+        !!old.preparationError,
     }))
   }
 
   useEffect(() => {
     validate('name')
     validate('recipeCategoryGuid')
-  }, [state.tag])
+    validate('ingredients')
+    validate('preparation')
+  }, [state.recipe])
 
   useEffect(() => {
     if (guid) {
-      _tag.GetByGuid(guid).then(result => {
-        setState(old => ({ ...old, tag: result }))
+      _recipe.GetByGuid(guid).then(result => {
+        setState(old => ({ ...old, recipe: result }))
       })
     }
   }, [guid])
 
   const handleChange = (key: string, value: unknown) => {
-    console.log(key, ' - ', value)
     setState(old => ({
       ...old,
-      tag: {
-        ...old.tag,
+      recipe: {
+        ...old.recipe,
         [key]: value,
-      } as Tag,
+      } as Recipe,
     }))
   }
 
-  const handleSave = () => {
-    const payload = new TagPayloadModel(state.tag)
+  const handleSetIngredients = (value: string) => {
+    handleChange('ingredients', value)
+  }
 
-    _tag
+  const handleSetPreparation = (value: string) => {
+    handleChange('preparation', value)
+  }
+
+  const handleSave = () => {
+    const payload = new RecipePayloadModel(state.recipe)
+
+    _recipe
       .Save(payload)
       .then(() => {
         addSuccess()
@@ -100,21 +121,21 @@ export const RecipeTagForm = ({ _validation, _tag, _category }: Props) => {
   }
 
   return (
-    <Container title="Recipe Tag - Form">
+    <Container title="Recipe Recipe - Form">
       <Box direction="column">
         <Group>
           <Input
             label="Name"
             name="name"
-            defaultValue={state.tag.name}
+            defaultValue={state.recipe.name}
             onChange={e => handleChange('name', e.currentTarget.value)}
             error={state.nameError}
           />
           <Select
             label="Category"
             name="recipeCategoryGuid"
-            defaultValue={state.tag.recipeCategoryGuid}
-            error={state.recipeCategoryGuidError}
+            defaultValue={state.recipe.recipeCategoryGuid}
+            error={state.recipeCategoryError}
             onChange={e =>
               handleChange('recipeCategoryGuid', e.currentTarget.value)
             }
@@ -129,12 +150,30 @@ export const RecipeTagForm = ({ _validation, _tag, _category }: Props) => {
           <Select
             label="Active"
             name="active"
-            defaultValue={state.tag.active}
+            defaultValue={state.recipe.active}
             onChange={e => handleChange('active', +e.currentTarget.value)}
           >
             <option value={ActiveEnum.Não}>Não</option>
             <option value={ActiveEnum.Sim}>Sim</option>
           </Select>
+        </Group>
+        <Group>
+          <Editor
+            label="Ingredients"
+            name="ingredients"
+            data={state.recipe.ingredients}
+            setContent={handleSetIngredients}
+            error={state.ingredientsError}
+          />
+        </Group>
+        <Group>
+          <Editor
+            label="Preparation"
+            name="preparation"
+            data={state.recipe.preparation}
+            setContent={handleSetPreparation}
+            error={state.preparationError}
+          />
         </Group>
         <Group>
           <Button skin="secondary" onClick={() => navigate(URL_BACK)}>

@@ -1,7 +1,7 @@
 import { Category } from '@/Application/Entries/Recipes/Category'
 import { ICategoryService } from '@/Application/Interfaces/Recipes/ICategoryService'
 import { PaginationResponseModel } from '@/Application/Models/PaginationResponseModel'
-import { FilterCategoryModel } from '@/Application/Models/Recipes/FilterCategoryModel'
+import { FilterCategoryModel } from '@/Application/Models/Recipes/Category/FilterCategoryModel'
 import { Box } from '@/Presentations/Components/Box'
 import { Container } from '@/Presentations/Components/Container'
 import {

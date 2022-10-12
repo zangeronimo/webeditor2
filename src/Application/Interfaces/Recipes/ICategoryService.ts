@@ -1,7 +1,7 @@
 import { Category } from '@/Application/Entries/Recipes/Category'
 import { PaginationResponseModel } from '@/Application/Models/PaginationResponseModel'
 import { CategoryPayloadModel } from '@/Application/Models/Recipes/Category/CategoryPayloadModel'
-import { FilterCategoryModel } from '@/Application/Models/Recipes/FilterCategoryModel'
+import { FilterCategoryModel } from '@/Application/Models/Recipes/Category/FilterCategoryModel'
 
 export interface ICategoryService {
   GetAll(

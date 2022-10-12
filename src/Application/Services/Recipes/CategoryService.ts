@@ -2,7 +2,7 @@ import { Category } from '@/Application/Entries/Recipes/Category'
 import { ICategoryService } from '@/Application/Interfaces/Recipes/ICategoryService'
 import { PaginationResponseModel } from '@/Application/Models/PaginationResponseModel'
 import { CategoryPayloadModel } from '@/Application/Models/Recipes/Category/CategoryPayloadModel'
-import { FilterCategoryModel } from '@/Application/Models/Recipes/FilterCategoryModel'
+import { FilterCategoryModel } from '@/Application/Models/Recipes/Category/FilterCategoryModel'
 import api from '@/Infra/Providers/Http/AxiosProvider'
 
 export class CategoryService implements ICategoryService {

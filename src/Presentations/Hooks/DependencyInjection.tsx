@@ -1,4 +1,5 @@
 import { CategoryService } from '@/Application/Services/Recipes/CategoryService'
+import { RecipeService } from '@/Application/Services/Recipes/RecipeService'
 import { TagService } from '@/Application/Services/Recipes/TagService'
 import { AuthService } from '@/Application/Services/System/AuthService'
 import { ProfileService } from '@/Application/Services/System/ProfileService'
@@ -23,6 +24,7 @@ const DependencyInjectionProvider = ({ children }: Props) => {
     IProfileService: ProfileService,
     ITagService: TagService,
     ICategoryService: CategoryService,
+    IRecipeService: RecipeService,
   }
 
   const Injected: { [key: string]: object } = {}

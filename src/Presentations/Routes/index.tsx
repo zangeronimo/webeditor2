@@ -3,7 +3,6 @@ import { Dashboard } from '../Pages/Dashboard'
 import { IsAuthenticated } from './Middleware/IsAuthenticated'
 import { RecipeImage } from '../Pages/Recipes/RecipeImage'
 import { RecipeRate } from '../Pages/Recipes/RecipeRate'
-import { Recipe } from '../Pages/Recipes/Recipe'
 import { AuthFactory } from '@/Application/Factories/Pages/System/AuthFactory'
 import { ProfileFactory } from '@/Application/Factories/Pages/System/ProfileFactory'
 import { UserFactory } from '@/Application/Factories/Pages/System/UserFactory'
@@ -15,6 +14,10 @@ import {
   CategoryFactory,
   CategoryFormFactory,
 } from '@/Application/Factories/Pages/Recipes/CategoryFactory'
+import {
+  RecipeFactory,
+  RecipeFormFactory,
+} from '@/Application/Factories/Pages/Recipes/RecipeFactory'
 
 export const Routes = () => {
   return (
@@ -101,10 +104,27 @@ export const Routes = () => {
         path="/recipes"
         element={
           <IsAuthenticated>
-            <Recipe />
+            <RecipeFactory />
           </IsAuthenticated>
         }
       />
+      <Route
+        path="/recipes/form"
+        element={
+          <IsAuthenticated>
+            <RecipeFormFactory />
+          </IsAuthenticated>
+        }
+      >
+        <Route
+          path=":guid"
+          element={
+            <IsAuthenticated>
+              <RecipeFormFactory />
+            </IsAuthenticated>
+          }
+        />
+      </Route>
 
       <Route
         path="/system/profile"

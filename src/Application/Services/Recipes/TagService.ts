@@ -1,7 +1,7 @@
 import { Tag } from '@/Application/Entries/Recipes/Tag'
 import { ITagService } from '@/Application/Interfaces/Recipes/ITagService'
 import { PaginationResponseModel } from '@/Application/Models/PaginationResponseModel'
-import { FilterTagModel } from '@/Application/Models/Recipes/FilterTagModel'
+import { FilterTagModel } from '@/Application/Models/Recipes/Tag/FilterTagModel'
 import { TagPayloadModel } from '@/Application/Models/Recipes/Tag/TagPayloadModel'
 import api from '@/Infra/Providers/Http/AxiosProvider'
 
