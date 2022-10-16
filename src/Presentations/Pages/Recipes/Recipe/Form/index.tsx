@@ -20,6 +20,7 @@ import { ITagService } from '@/Application/Interfaces/Recipes/ITagService'
 import { FilterTagModel } from '@/Application/Models/Recipes/Tag/FilterTagModel'
 import { Tag } from '@/Application/Entries/Recipes/Tag'
 import { File2Base64 } from '@/Presentations/Utils/File2Base64'
+import { Galery, ImageGalery } from '@/Presentations/Components/Galery'
 
 type Props = {
   _validation: IValidation
@@ -38,6 +39,7 @@ export const RecipeForm = ({
 }: Props) => {
   const [state, setState] = useState({
     recipe: { active: ActiveEnum.Sim } as Recipe,
+    imagesGalery: [] as ImageGalery[],
     image: {} as File,
     categories: [] as Category[],
     tags: [] as Tag[],
@@ -111,7 +113,16 @@ export const RecipeForm = ({
   useEffect(() => {
     if (guid) {
       _recipe.GetByGuid(guid).then(result => {
-        setState(old => ({ ...old, recipe: result }))
+        let galery = [] as ImageGalery[]
+        if (result.recipeImages.length > 0) {
+          galery = result.recipeImages.map(img => ({
+            key: img.guid,
+            name: '',
+            path: img.path,
+          }))
+        }
+
+        setState(old => ({ ...old, recipe: result, imagesGalery: galery }))
         handleGetTags(result.recipeCategoryGuid)
       })
     }
@@ -260,13 +271,7 @@ export const RecipeForm = ({
           />
         </Group>
         <Group>
-          {state.recipe.recipeImages?.map(image => (
-            <img
-              key={image.guid}
-              src={`${process.env.API_URL}/${image.path}`}
-              alt={Recipe.name}
-            />
-          ))}
+          <Galery images={state.imagesGalery} />
         </Group>
         <Group>
           <Button skin="secondary" onClick={() => navigate(URL_BACK)}>
