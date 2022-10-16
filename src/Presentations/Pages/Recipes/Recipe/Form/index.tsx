@@ -138,7 +138,7 @@ export const RecipeForm = ({
   const handleSave = async () => {
     const payload = new RecipePayloadModel(state.recipe)
 
-    if (state.image) {
+    if (state.image?.type) {
       const [type, image64] = (await File2Base64(state.image)).split(',')
       if (!type.includes('image')) {
         addError('Imagem com formato inválido')
