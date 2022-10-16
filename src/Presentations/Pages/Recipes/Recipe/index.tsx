@@ -1,4 +1,4 @@
-import { Recipe as RecipeEntity } from '@/Application/Entries/Recipes/Recipe'
+import { Recipe as RecipeEntity } from '@/Application/Entities/Recipes/Recipe'
 import { IRecipeService } from '@/Application/Interfaces/Recipes/IRecipeService'
 import { PaginationResponseModel } from '@/Application/Models/PaginationResponseModel'
 import { FilterRecipeModel } from '@/Application/Models/Recipes/Recipe/FilterRecipeModel'

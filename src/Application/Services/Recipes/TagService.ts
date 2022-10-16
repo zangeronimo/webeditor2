@@ -1,4 +1,4 @@
-import { Tag } from '@/Application/Entries/Recipes/Tag'
+import { Tag } from '@/Application/Entities/Recipes/Tag'
 import { ITagService } from '@/Application/Interfaces/Recipes/ITagService'
 import { PaginationResponseModel } from '@/Application/Models/PaginationResponseModel'
 import { FilterTagModel } from '@/Application/Models/Recipes/Tag/FilterTagModel'

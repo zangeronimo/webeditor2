@@ -1,4 +1,4 @@
-import { Category } from '@/Application/Entries/Recipes/Category'
+import { Category } from '@/Application/Entities/Recipes/Category'
 import { ICategoryService } from '@/Application/Interfaces/Recipes/ICategoryService'
 import { PaginationResponseModel } from '@/Application/Models/PaginationResponseModel'
 import { CategoryPayloadModel } from '@/Application/Models/Recipes/Category/CategoryPayloadModel'
@@ -48,3 +48,4 @@ export class CategoryService implements ICategoryService {
       .then(response => response.data)
   }
 }
+

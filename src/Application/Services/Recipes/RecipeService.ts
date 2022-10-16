@@ -1,4 +1,4 @@
-import { Recipe } from '@/Application/Entries/Recipes/Recipe'
+import { Recipe } from '@/Application/Entities/Recipes/Recipe'
 import { IRecipeService } from '@/Application/Interfaces/Recipes/IRecipeService'
 import { PaginationResponseModel } from '@/Application/Models/PaginationResponseModel'
 import { FilterRecipeModel } from '@/Application/Models/Recipes/Recipe/FilterRecipeModel'
@@ -57,3 +57,4 @@ export class RecipeService implements IRecipeService {
       .then(response => response.data)
   }
 }
+

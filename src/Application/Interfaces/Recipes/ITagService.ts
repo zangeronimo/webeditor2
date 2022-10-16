@@ -1,4 +1,4 @@
-import { Tag } from '@/Application/Entries/Recipes/Tag'
+import { Tag } from '@/Application/Entities/Recipes/Tag'
 import { PaginationResponseModel } from '@/Application/Models/PaginationResponseModel'
 import { FilterTagModel } from '@/Application/Models/Recipes/Tag/FilterTagModel'
 import { TagPayloadModel } from '@/Application/Models/Recipes/Tag/TagPayloadModel'
@@ -9,3 +9,4 @@ export interface ITagService {
   Save(payload: TagPayloadModel): Promise<Tag>
   Delete(guid: string): Promise<Tag>
 }
+

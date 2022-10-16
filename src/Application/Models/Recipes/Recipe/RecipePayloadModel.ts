@@ -1,4 +1,4 @@
-import { Recipe } from '@/Application/Entries/Recipes/Recipe'
+import { Recipe } from '@/Application/Entities/Recipes/Recipe'
 import { ActiveEnum } from '@/Application/Enum/ActiveEnum'
 
 export class RecipePayloadModel {
@@ -21,3 +21,4 @@ export class RecipePayloadModel {
     this.tags = recipe.recipeTags?.map(tag => tag.guid)
   }
 }
+

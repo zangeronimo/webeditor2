@@ -1,5 +1,5 @@
-import { Category } from '@/Application/Entries/Recipes/Category'
-import { Recipe } from '@/Application/Entries/Recipes/Recipe'
+import { Category } from '@/Application/Entities/Recipes/Category'
+import { Recipe } from '@/Application/Entities/Recipes/Recipe'
 import { ActiveEnum } from '@/Application/Enum/ActiveEnum'
 import { ICategoryService } from '@/Application/Interfaces/Recipes/ICategoryService'
 import { IRecipeService } from '@/Application/Interfaces/Recipes/IRecipeService'
@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ITagService } from '@/Application/Interfaces/Recipes/ITagService'
 import { FilterTagModel } from '@/Application/Models/Recipes/Tag/FilterTagModel'
-import { Tag } from '@/Application/Entries/Recipes/Tag'
+import { Tag } from '@/Application/Entities/Recipes/Tag'
 import { File2Base64 } from '@/Presentations/Utils/File2Base64'
 import { Galery, ImageGalery } from '@/Presentations/Components/Galery'
 
@@ -119,6 +119,7 @@ export const RecipeForm = ({
             key: img.guid,
             name: '',
             path: img.path,
+            active: img.active,
           }))
         }
 

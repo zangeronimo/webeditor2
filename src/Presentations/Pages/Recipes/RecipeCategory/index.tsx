@@ -1,4 +1,4 @@
-import { Category } from '@/Application/Entries/Recipes/Category'
+import { Category } from '@/Application/Entities/Recipes/Category'
 import { ICategoryService } from '@/Application/Interfaces/Recipes/ICategoryService'
 import { PaginationResponseModel } from '@/Application/Models/PaginationResponseModel'
 import { FilterCategoryModel } from '@/Application/Models/Recipes/Category/FilterCategoryModel'
@@ -109,3 +109,4 @@ export const RecipeCategory = ({ _category }: Props) => {
     </Container>
   )
 }
+

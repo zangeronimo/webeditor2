@@ -1,5 +1,5 @@
-import { Category } from '@/Application/Entries/Recipes/Category'
-import { Tag } from '@/Application/Entries/Recipes/Tag'
+import { Category } from '@/Application/Entities/Recipes/Category'
+import { Tag } from '@/Application/Entities/Recipes/Tag'
 import { ActiveEnum } from '@/Application/Enum/ActiveEnum'
 import { ICategoryService } from '@/Application/Interfaces/Recipes/ICategoryService'
 import { ITagService } from '@/Application/Interfaces/Recipes/ITagService'
@@ -147,3 +147,4 @@ export const RecipeTagForm = ({ _validation, _tag, _category }: Props) => {
     </Container>
   )
 }
+

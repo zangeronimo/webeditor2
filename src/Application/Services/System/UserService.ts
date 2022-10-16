@@ -1,4 +1,4 @@
-import { User } from '@/Application/Entries/System/User'
+import { User } from '@/Application/Entities/System/User'
 import { IUserService } from '@/Application/Interfaces/System/IUserService'
 import { PaginationResponseModel } from '@/Application/Models/PaginationResponseModel'
 import { FilterUserModel } from '@/Application/Models/System/FilterUserModel'
@@ -21,3 +21,4 @@ export class UserService implements IUserService {
       .then(response => response.data)
   }
 }
+

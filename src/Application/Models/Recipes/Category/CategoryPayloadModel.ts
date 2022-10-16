@@ -1,4 +1,4 @@
-import { Category } from '@/Application/Entries/Recipes/Category'
+import { Category } from '@/Application/Entities/Recipes/Category'
 import { ActiveEnum } from '@/Application/Enum/ActiveEnum'
 
 export class CategoryPayloadModel {
@@ -12,3 +12,4 @@ export class CategoryPayloadModel {
     this.active = category.active
   }
 }
+

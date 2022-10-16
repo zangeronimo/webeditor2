@@ -1,4 +1,4 @@
-import { Category } from '@/Application/Entries/Recipes/Category'
+import { Category } from '@/Application/Entities/Recipes/Category'
 import { ActiveEnum } from '@/Application/Enum/ActiveEnum'
 import { ICategoryService } from '@/Application/Interfaces/Recipes/ICategoryService'
 import { CategoryPayloadModel } from '@/Application/Models/Recipes/Category/CategoryPayloadModel'
@@ -113,3 +113,4 @@ export const RecipeCategoryForm = ({ _validation, _category }: Props) => {
     </Container>
   )
 }
+

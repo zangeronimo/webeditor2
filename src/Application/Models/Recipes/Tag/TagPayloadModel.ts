@@ -1,4 +1,4 @@
-import { Tag } from '@/Application/Entries/Recipes/Tag'
+import { Tag } from '@/Application/Entities/Recipes/Tag'
 import { ActiveEnum } from '@/Application/Enum/ActiveEnum'
 
 export class TagPayloadModel {
@@ -14,3 +14,4 @@ export class TagPayloadModel {
     this.active = tag.active
   }
 }
+

@@ -1,4 +1,4 @@
-import { User } from '@/Application/Entries/System/User'
+import { User } from '@/Application/Entities/System/User'
 import { IProfileService } from '@/Application/Interfaces/System/IProfileService'
 import { ChangePasswordModel } from '@/Application/Models/System/ChangePasswordModel'
 import { ProfileModel } from '@/Application/Models/System/ProfileModel'
@@ -23,3 +23,4 @@ export class ProfileService implements IProfileService {
       .then(response => response.data)
   }
 }
+
