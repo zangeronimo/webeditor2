@@ -75,7 +75,6 @@ export const RecipeTagForm = ({ _validation, _tag, _category }: Props) => {
   }, [guid])
 
   const handleChange = (key: string, value: unknown) => {
-    console.log(key, ' - ', value)
     setState(old => ({
       ...old,
       tag: {

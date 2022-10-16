@@ -16,19 +16,31 @@ import { Group } from '@/Presentations/Components/Group'
 import { useToast } from '@/Presentations/Hooks/Toast'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { ITagService } from '@/Application/Interfaces/Recipes/ITagService'
+import { FilterTagModel } from '@/Application/Models/Recipes/Tag/FilterTagModel'
+import { Tag } from '@/Application/Entries/Recipes/Tag'
+import { File2Base64 } from '@/Presentations/Utils/File2Base64'
 
 type Props = {
   _validation: IValidation
   _recipe: IRecipeService
   _category: ICategoryService
+  _tag: ITagService
 }
 
 const URL_BACK = '/recipes'
 
-export const RecipeForm = ({ _validation, _recipe, _category }: Props) => {
+export const RecipeForm = ({
+  _validation,
+  _recipe,
+  _category,
+  _tag,
+}: Props) => {
   const [state, setState] = useState({
     recipe: { active: ActiveEnum.Sim } as Recipe,
+    image: {} as File,
     categories: [] as Category[],
+    tags: [] as Tag[],
     isFormInvalid: true,
     recipeCategoryError: '',
     ingredientsError: '',
@@ -80,10 +92,27 @@ export const RecipeForm = ({ _validation, _recipe, _category }: Props) => {
     validate('preparation')
   }, [state.recipe])
 
+  const handleGetTags = (categoryGuid: string) => {
+    if (categoryGuid) {
+      const filter = new FilterTagModel()
+      filter.recipeCategoryGuid = categoryGuid
+      filter.itemsPerPage = 9999
+      filter.orderBy = 'name'
+      filter.asc = true
+
+      _tag.GetAll(filter).then(result => {
+        setState(old => ({ ...old, tags: result.result }))
+      })
+    } else {
+      setState(old => ({ ...old, tags: [] }))
+    }
+  }
+
   useEffect(() => {
     if (guid) {
       _recipe.GetByGuid(guid).then(result => {
         setState(old => ({ ...old, recipe: result }))
+        handleGetTags(result.recipeCategoryGuid)
       })
     }
   }, [guid])
@@ -106,8 +135,17 @@ export const RecipeForm = ({ _validation, _recipe, _category }: Props) => {
     handleChange('preparation', value)
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const payload = new RecipePayloadModel(state.recipe)
+
+    if (state.image) {
+      const [type, image64] = (await File2Base64(state.image)).split(',')
+      if (!type.includes('image')) {
+        addError('Imagem com formato inválido')
+        return
+      }
+      payload.image = image64
+    }
 
     _recipe
       .Save(payload)
@@ -118,6 +156,31 @@ export const RecipeForm = ({ _validation, _recipe, _category }: Props) => {
       .catch(err => {
         addError(err.message)
       })
+  }
+
+  const hasTag = (guid: string) => {
+    return (
+      state.recipe?.recipeTags?.find(tag => tag.guid === guid)?.guid === guid
+    )
+  }
+
+  const handleClickTag = (guid: string) => {
+    let tags = state.recipe.recipeTags
+    if (hasTag(guid)) {
+      tags = state.recipe.recipeTags.filter(tag => tag.guid !== guid)
+    } else {
+      const tag = state.tags.find(tag => tag.guid === guid)
+      tags.push(tag)
+    }
+
+    setState(old => ({
+      ...old,
+      recipe: { ...old.recipe, recipeTags: tags } as Recipe,
+    }))
+  }
+
+  const handleSetImage = (image: File) => {
+    setState(old => ({ ...old, image }))
   }
 
   return (
@@ -136,9 +199,10 @@ export const RecipeForm = ({ _validation, _recipe, _category }: Props) => {
             name="recipeCategoryGuid"
             defaultValue={state.recipe.recipeCategoryGuid}
             error={state.recipeCategoryError}
-            onChange={e =>
+            onChange={e => {
               handleChange('recipeCategoryGuid', e.currentTarget.value)
-            }
+              handleGetTags(e.currentTarget.value)
+            }}
           >
             <option value="">Select</option>
             {state.categories.map(category => (
@@ -158,6 +222,19 @@ export const RecipeForm = ({ _validation, _recipe, _category }: Props) => {
           </Select>
         </Group>
         <Group>
+          {state.tags.map(tag => (
+            <span key={tag.guid}>
+              <input
+                type="checkbox"
+                checked={hasTag(tag.guid)}
+                value={tag.guid}
+                onChange={e => handleClickTag(e.currentTarget.value)}
+              />{' '}
+              {tag.name}
+            </span>
+          ))}
+        </Group>
+        <Group>
           <Editor
             label="Ingredients"
             name="ingredients"
@@ -174,6 +251,22 @@ export const RecipeForm = ({ _validation, _recipe, _category }: Props) => {
             setContent={handleSetPreparation}
             error={state.preparationError}
           />
+        </Group>
+        <Group>
+          <input
+            type="file"
+            name="image"
+            onChange={e => handleSetImage(e.currentTarget.files[0])}
+          />
+        </Group>
+        <Group>
+          {state.recipe.recipeImages?.map(image => (
+            <img
+              key={image.guid}
+              src={`${process.env.API_URL}/${image.path}`}
+              alt={Recipe.name}
+            />
+          ))}
         </Group>
         <Group>
           <Button skin="secondary" onClick={() => navigate(URL_BACK)}>

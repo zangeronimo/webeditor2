@@ -1,5 +1,7 @@
 import { ActiveEnum } from '@/Application/Enum/ActiveEnum'
 import { Category } from './Category'
+import { Image } from './Image'
+import { Tag } from './Tag'
 
 export class Recipe {
   private _guid: string
@@ -9,7 +11,8 @@ export class Recipe {
   private _active: ActiveEnum
   private _recipeCategoryGuid: string
   private _recipeCategory: Category
-  private _image: string
+  private _recipeImages: Image[]
+  private _recipeTags: Tag[]
 
   constructor(
     guid: string,
@@ -18,7 +21,8 @@ export class Recipe {
     preparation: string,
     active: ActiveEnum,
     recipeCategoryGuid: string,
-    image: string,
+    recipeImages: Image[],
+    recipeTags: Tag[],
   ) {
     this._guid = guid
     this._name = name
@@ -26,7 +30,8 @@ export class Recipe {
     this._preparation = preparation
     this._active = active
     this._recipeCategoryGuid = recipeCategoryGuid
-    this._image = image
+    this._recipeImages = recipeImages
+    this._recipeTags = recipeTags
   }
 
   public get guid() {
@@ -57,7 +62,11 @@ export class Recipe {
     return this._active
   }
 
-  public get image() {
-    return this._image
+  public get recipeImages() {
+    return this._recipeImages
+  }
+
+  public get recipeTags() {
+    return this._recipeTags
   }
 }

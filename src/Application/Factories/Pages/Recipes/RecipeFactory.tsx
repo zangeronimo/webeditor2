@@ -15,6 +15,7 @@ export const RecipeFormFactory = () => {
       _validation={RecipeValidationData()}
       _recipe={makeInjection('IRecipeService')}
       _category={makeInjection('ICategoryService')}
+      _tag={makeInjection('ITagService')}
     />
   )
 }

@@ -9,6 +9,7 @@ export class RecipePayloadModel {
   recipeCategoryGuid: string
   active: ActiveEnum
   image?: string
+  tags?: string[]
 
   constructor(recipe: Recipe) {
     this.guid = recipe.guid
@@ -17,6 +18,6 @@ export class RecipePayloadModel {
     this.preparation = recipe.preparation
     this.recipeCategoryGuid = recipe.recipeCategoryGuid
     this.active = recipe.active
-    this.image = recipe.image
+    this.tags = recipe.recipeTags?.map(tag => tag.guid)
   }
 }
