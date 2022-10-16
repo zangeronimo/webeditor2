@@ -12,7 +12,6 @@ import {
   Col,
   Body,
 } from '@/Presentations/Components/DataGrid'
-import { Button } from '@/Presentations/Components/Form/Button'
 import { Group } from '@/Presentations/Components/Group'
 import { IconButton } from '@/Presentations/Components/IconButton'
 import { usePagination } from '@/Presentations/Hooks/Pagination'
@@ -25,7 +24,7 @@ import {
   FaToggleOn,
   FaTrash,
 } from 'react-icons/fa'
-import { useSearchParams, useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 type Props = {
   _image: IImageService
@@ -40,7 +39,6 @@ export const RecipeImage = ({ _image }: Props) => {
   const [searchParams] = useSearchParams()
   const word = searchParams.get('word') ?? ''
 
-  const navigate = useNavigate()
   const { addError, addSuccess } = useToast()
   const pagination = usePagination()
 
@@ -74,11 +72,8 @@ export const RecipeImage = ({ _image }: Props) => {
   }, [pagination, state.refresh])
 
   return (
-    <Container search title="Recipe Recipes">
-      <Box direction="column">
-        <Group align="right">
-          <Button onClick={() => navigate('form')}>Create</Button>
-        </Group>
+    <Container search title="Recipe Images">
+      <Box>
         <DataGrid pagination={state.response.total}>
           <Header>
             <Row>

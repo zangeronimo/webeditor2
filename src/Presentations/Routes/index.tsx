@@ -1,7 +1,6 @@
 import { Routes as RoutesDom, Route } from 'react-router-dom'
 import { Dashboard } from '../Pages/Dashboard'
 import { IsAuthenticated } from './Middleware/IsAuthenticated'
-import { RecipeRate } from '../Pages/Recipes/RecipeRate'
 import { AuthFactory } from '@/Application/Factories/Pages/System/AuthFactory'
 import { ProfileFactory } from '@/Application/Factories/Pages/System/ProfileFactory'
 import { UserFactory } from '@/Application/Factories/Pages/System/UserFactory'
@@ -18,6 +17,7 @@ import {
   RecipeFormFactory,
 } from '@/Application/Factories/Pages/Recipes/RecipeFactory'
 import { ImageFactory } from '@/Application/Factories/Pages/Recipes/ImageFactory'
+import { RateFactory } from '@/Application/Factories/Pages/Recipes/RateFactory'
 
 export const Routes = () => {
   return (
@@ -96,7 +96,7 @@ export const Routes = () => {
         path="/recipe/rates"
         element={
           <IsAuthenticated>
-            <RecipeRate />
+            <RateFactory />
           </IsAuthenticated>
         }
       />
