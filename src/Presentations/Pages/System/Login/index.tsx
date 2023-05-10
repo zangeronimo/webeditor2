@@ -94,7 +94,7 @@ export const Login = ({ _validation, _auth }: Props) => {
           />
           <Group>
             <Button disabled={state.isFormInvalid} onClick={handleLogin}>
-              Entrar
+              Entrar Já
             </Button>
           </Group>
         </Box>
@@ -102,3 +102,4 @@ export const Login = ({ _validation, _auth }: Props) => {
     </>
   )
 }
+
